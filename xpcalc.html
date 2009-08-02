@@ -8,16 +8,14 @@
   </head>
   <body>
     <h1>Experience Calculator</h1>
-    <form name="input" action="xpcalc.html" method="post" onsubmit="makeTable()" >
-      Level:
-      <input type="text" name="level" size="2" value="1" /><br />
-      Range:
-      <input type="text" name="range" size="2" value="5" /><br />
-      <input type="submit" value="calculate" />
-    </form>
+    Level:
+    <input type="text" name="level" size="2" value="1" /><br />
+    Range:
+    <input type="text" name="range" size="2" value="5" /><br />
+    <input type="submit" onclick="makeTable()" value="calculate" />
     <br />
 
-    <div id="table">hey</div>
+    <div id="table"></div>
 
     <hr />
     Written by <a href="mailto:dashteacup@comcast.net">dashteacup</a>
