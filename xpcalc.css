@@ -1,0 +1,9 @@
+/* Styles for the experience calculator. */
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding: 5px;
+}
