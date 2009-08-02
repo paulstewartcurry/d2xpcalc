@@ -10,7 +10,7 @@ var areaLevelsAndXP = [
 
 function makeTable() {
     var tableDiv = document.getElementById("table");
-    var tableText = "<table>";
+    var tableText = "<table border=\"1\">";
     for (row in areaLevelsAndXP) {
         tableText += "<tr>";
         for (col in areaLevelsAndXP[row]) {
