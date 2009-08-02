@@ -9,7 +9,7 @@ var areaLevelsAndXP = [
 ];
 
 function makeTable() {
-    var tableDiv = Document.getElementById("table");
+    var tableDiv = document.getElementById("table");
     var tableText = "<table>";
     alert("this is an alert");
     for (elem in areaLevelsAndXP) {
