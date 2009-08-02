@@ -4,11 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <title>Diablo 2 Experience Calculator</title>
-    <script type="text/javascript" src="xpcalc.js" />
+    <script type="text/javascript" src="xpcalc.js"></script>
   </head>
   <body>
     <h1>Experience Calculator</h1>
-    <form name="input" action="xpcalc.html" method="post">
+    <form name="input" action="xpcalc.html" method="post" onsubmit="makeTable()" >
       Level:
       <input type="text" name="level" size="2" value="1" /><br />
       Range:
@@ -17,7 +17,7 @@
     </form>
     <br />
 
-    <div id="table" />
+    <div id="table">hey</div>
 
     <hr />
     Written by <a href="mailto:dashteacup@comcast.net">dashteacup</a>
