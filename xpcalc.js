@@ -25,6 +25,7 @@ function splitAreaLevels(alist) {
 function makeTable(list) {
     var tableDiv = document.getElementById("table");
     var tableText = "<table border=\"1\">";
+    tableText += "<tr><td>Area</td><td>alvl</td><td>average xp</td></tr>";
     for (row in list) {
         tableText += "<tr>";
         for (col in list[row]) {
@@ -36,6 +37,8 @@ function makeTable(list) {
     tableDiv.innerHTML = tableText;
 }
 
+// generic "do-it" function
+// TODO: replace with something more appropriate.
 function calc() {
     var list = splitAreaLevels(rawAreaLevelsAndXP);
     makeTable(list);
