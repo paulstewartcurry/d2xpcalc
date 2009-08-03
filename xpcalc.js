@@ -14,9 +14,12 @@ function splitAreaLevels(alist) {
     var newList = new Array();
     var nrow = 0;
     for (row in alist) {
-        newList[nrow++] = new Array(alist[row][0], alist[row][1], alist[row][2]);
-        newList[nrow++] = new Array(alist[row][0], alist[row][3], alist[row][4]);
-        newList[nrow++] = new Array(alist[row][0], alist[row][5], alist[row][6]);
+        newList[nrow++] = new Array(alist[row][0], alist[row][1],
+                                    alist[row][2], "N");
+        newList[nrow++] = new Array(alist[row][0], alist[row][3],
+                                    alist[row][4], "NM");
+        newList[nrow++] = new Array(alist[row][0], alist[row][5],
+                                    alist[row][6], "H");
     }
     return newList;
 }
@@ -25,7 +28,8 @@ function splitAreaLevels(alist) {
 function makeTable(list) {
     var tableDiv = document.getElementById("table");
     var tableText = "<table border=\"1\">";
-    tableText += "<tr><td>Area</td><td>alvl</td><td>average xp</td></tr>";
+    tableText += "<tr><td>Area</td><td>alvl</td>" +
+                 "<td>average xp</td><td>difficulty</td></tr>";
     for (row in list) {
         tableText += "<tr>";
         for (col in list[row]) {
@@ -37,9 +41,16 @@ function makeTable(list) {
     tableDiv.innerHTML = tableText;
 }
 
+// TODO: should sort by ACTUAL avg experience (depends on clvl)
+function sortXP(a, b) {
+    return a[2] - b[2];
+}
+
 // generic "do-it" function
 // TODO: replace with something more appropriate.
 function calc() {
     var list = splitAreaLevels(rawAreaLevelsAndXP);
+    list.sort(sortXP);
+    list.reverse();
     makeTable(list);
 }
