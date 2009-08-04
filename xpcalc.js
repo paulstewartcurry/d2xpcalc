@@ -10,7 +10,7 @@ var rawAreaLevelsAndXP = [
     ["Crypt ",3,39,37,2600,83,46100]
 ];
 
-// Create a new two-column level list from the given raw (7-column) list.
+// Create a new 3-column level list from the given raw (7-column) list.
 function splitAreaLevels(alist) {
     var newList = new Array();
     var nrow = 0;
@@ -60,8 +60,7 @@ function rangeFilter(alist, level, range) {
     return filtered;
 }
 
-// generic "do-it" function
-// TODO: replace with something more appropriate.
+// main() function
 function calc() {
     var level = parseInt(document.getElementById("levelField").value);
     var range = parseInt(document.getElementById("rangeField").value);
