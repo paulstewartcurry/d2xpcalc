@@ -1,4 +1,5 @@
 // Area level data straight from the text file.
+// The text file's data comes from Epi MG's area level chart.
 var rawAreaLevelsAndXP = [
     ["Blood Moor ",1,24,36,2100,67,21400],
     ["Den of Evil ",1,29,36,2600,79,43500],
@@ -14,12 +15,12 @@ function splitAreaLevels(alist) {
     var newList = new Array();
     var nrow = 0;
     for (row in alist) {
-        newList[nrow++] = new Array(alist[row][0], alist[row][1],
-                                    alist[row][2], "N");
-        newList[nrow++] = new Array(alist[row][0], alist[row][3],
-                                    alist[row][4], "NM");
-        newList[nrow++] = new Array(alist[row][0], alist[row][5],
-                                    alist[row][6], "H");
+        newList[nrow++] = new Array(alist[row][0],
+                                    alist[row][1], alist[row][2], "N");
+        newList[nrow++] = new Array(alist[row][0],
+                                    alist[row][3], alist[row][4], "NM");
+        newList[nrow++] = new Array(alist[row][0],
+                                    alist[row][5], alist[row][6], "H");
     }
     return newList;
 }
@@ -46,10 +47,25 @@ function sortXP(a, b) {
     return a[2] - b[2];
 }
 
+// Filters out all areas that aren't between (alvl - range) and (alvl + range)
+function rangeFilter(alist, level, range) {
+    var filtered = new Array();
+    var nrow = 0;
+    for (row in alist) {
+        if (alist[row][1] >= level - range &&
+            alist[row][1] <= level + range) {
+            filtered[nrow++] = alist[row];
+       }
+    }
+    return filtered;
+}
+
 // generic "do-it" function
 // TODO: replace with something more appropriate.
 function calc() {
-    var list = splitAreaLevels(rawAreaLevelsAndXP);
+    var level = parseInt(document.getElementById("levelField").value);
+    var range = parseInt(document.getElementById("rangeField").value);
+    var list = rangeFilter(splitAreaLevels(rawAreaLevelsAndXP), level, range);
     list.sort(sortXP);
     list.reverse();
     makeTable(list);
