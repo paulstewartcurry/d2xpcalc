@@ -60,12 +60,54 @@ function rangeFilter(alist, level, range) {
     return filtered;
 }
 
+function lessThanNeg5(delta) {
+    switch (delta) {
+    case -6: return .81;
+    case -7: return .62;
+    case -8: return .43;
+    case -9: return .24;
+    default: return .05;
+    }
+}
+
+function lessThan25(alvl, clvl) {
+    var delta = alvl - clvl;
+    if (delta >= 10) return .05;
+    if (delta == 9) return .15;
+    if (delta == 8) return .36;
+    if (delta == 7) return .68;
+    if (delta == 6) return .88;
+    if (delta >= -5 && delta <= 5) return 1;
+    return lessThanNeg5(delta);
+}
+
+function greaterThan25(alvl, clvl) {
+    var delta = alvl - clvl;
+    if (delta > 0) return clvl / alvl;
+    if (delta >= -5 && delta <= 0) return 1;
+    return lessThanNeg5(delta);
+}
+
+function scaleXP(alist, level) {
+    var scaled = new Array();
+    for (area in alist) {
+        scaled[area] = alist[area];
+        if (level <= 24)
+            scaled[area][2] *= lessThan25(alist[area][1], level);
+        else
+            scaled[area][2] *= greaterThan25(alist[area][1], level);
+        scaled[area][2] = Math.round(scaled[area][2]);
+    }
+    return scaled;
+}
+
 // main() function
 function calc() {
     var level = parseInt(document.getElementById("levelField").value);
     var range = parseInt(document.getElementById("rangeField").value);
-    var list = rangeFilter(splitAreaLevels(rawAreaLevelsAndXP), level, range);
-    list.sort(sortXP);
-    list.reverse();
-    makeTable(list);
+    var filtered = rangeFilter(splitAreaLevels(rawAreaLevelsAndXP), level, range);
+    var adjustedXP = scaleXP(filtered, level);
+    adjustedXP.sort(sortXP);
+    adjustedXP.reverse();
+    makeTable(adjustedXP);
 }
