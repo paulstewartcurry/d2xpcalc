@@ -118,7 +118,8 @@ var rawAreaLevelsAndXP = [
     ["Throne of Destruction ",43,3130,66,26900,85,81300]
 ];
 
-// Create a new 3-column level list from the given raw (7-column) list.
+// Create a new 4-column level list from the given raw (7-column) list.
+// New format is: [Name, alvl, xp, difficulty]
 function splitAreaLevels(alist) {
     var newList = new Array();
     var nrow = 0;
@@ -170,6 +171,7 @@ function rangeFilter(alist, level, range) {
 
 // Common code for both scaling functions.
 // Covers cases where the clvl is 6 or more than the alvl.
+// That is, alvl - clvl < -5.
 function lessThanNeg5(delta) {
     switch (delta) {
     case -6: return .81;
