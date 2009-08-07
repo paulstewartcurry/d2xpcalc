@@ -138,8 +138,8 @@ function splitAreaLevels(alist) {
 function makeTable(list) {
     var tableDiv = document.getElementById("table");
     var tableText = "<table border=\"1\">";
-    tableText += "<tr><td>Area</td><td>alvl</td>" +
-                 "<td>average xp</td><td>difficulty</td></tr>";
+    tableText += "<tr><th>area</th><th>alvl</th>" +
+                 "<th>average xp</th><th>difficulty</th></tr>";
     for (row in list) {
         tableText += "<tr>";
         for (col in list[row]) {
