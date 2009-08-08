@@ -3,7 +3,7 @@ require 'datasource'
 class Levels < Datasource
   attr_accessor :levels
 
-  def initialize(file)
+  def initialize
     super
     @levels = []
     rows.each do |row|
@@ -22,5 +22,5 @@ class Levels < Datasource
   end
 end
 
-levels = Levels.new('data/global/excel/Levels.txt')
+levels = Levels.new
 puts levels

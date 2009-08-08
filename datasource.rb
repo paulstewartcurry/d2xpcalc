@@ -4,7 +4,8 @@ class Datasource
   attr_accessor :data
   attr_reader :rows
 
-  def initialize(file)
+  def initialize(file = nil)
+    file ||= "data/global/excel/#{self.class.name}.txt"
     csv = CSV.open(file, 'r', "\t")
     head = csv.shift
     @columns = {}

@@ -7,7 +7,7 @@ require 'datasource'
 class MonStats < Datasource
   attr_accessor :monsters
 
-  def initialize(file)
+  def initialize
     super
     @monsters = []
     rows.each do |row|
@@ -29,5 +29,5 @@ class MonStats < Datasource
   end
 end
 
-monstats = MonStats.new('data/global/excel/MonStats.txt')
+monstats = MonStats.new
 puts monstats
