@@ -14,7 +14,7 @@ class MonStats < Datasource
       levels = %w[Level Level(N) Level(H)].map {|col| value(row,col)}.compact.map {|n| n.to_i}
       exp = %w[Exp Exp(N) Exp(H)].map {|col| value(row,col)}.compact.map {|n| n.to_i}
       name = value(row,'NameStr')
-      next if levels.empty? or exp.empty? or name.nil?
+      next if name.nil?
       monsters << {
         :id => value(row, 'Id'),
         :name => name,

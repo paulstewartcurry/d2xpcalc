@@ -28,15 +28,20 @@ levels = cache('levels') {Levels.new}
 mon_stats = cache('mon_stats') {MonStats.new}
 mon_lvl = cache('mon_lvl') {MonLvl.new}
 
-monster_xps = levels.levels.first[:monsters].map do |mon_id|
-  monster = mon_stats[mon_id]
-  norm_real_xp = mon_lvl[monster[:levels][0]][:exp].first * monster[:exp_pct].first.to_f/100
+levels.levels.each do |level|
+  monster_xps = level[:monsters].map do |mon_id|
+    monster = mon_stats[mon_id]
+    raise "Monster not found: #{mon_id}" if monster.nil?
+    monster_level_normal = monster[:levels][0]
+    monster_experience_monster_level_normal = mon_lvl[monster_level_normal][:exp].first
+    monster_experience_percentage_normal = monster[:exp_pct].first.to_f/100
+    norm_real_xp = monster_experience_monster_level_normal * monster_experience_percentage_normal
+  end
+  level[:exp] = [monster_xps.avg.floor]
 end
-p monster_xps
-p monster_xps.avg
-# p monster
 
 # normal_real_xp = normal_mon_lvl_xp * mon_xp_pct_norm
 # nightmare_real_xp = nm_area_lvl_xp * mon_xp_pct_nm
 # hell_real_xp = hell_area_lvl_xp * mon_xp_pct_hell
 
+puts levels
