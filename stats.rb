@@ -24,45 +24,25 @@ def cache(key, &block)
   end
 end
 
-levels = cache('levels') {Levels.new}
-mon_stats = cache('mon_stats') {MonStats.new}
-mon_lvl = cache('mon_lvl') {MonLvl.new}
+LEVELS = cache('levels') {Levels.new}
+MON_STATS = cache('mon_stats') {MonStats.new}
+MON_LVL = cache('mon_lvl') {MonLvl.new}
 
-levels.levels.each do |level|
-  normal_monster_xps = level[:monsters].map do |mon_id|
-    monster = mon_stats[mon_id]
+# difficulty: 0=normal, 1=nightmare, 2=hell
+def area_xps(level, difficulty)
+  xps = level[:monsters].map do |mon_id|
+    monster = MON_STATS[mon_id]
     raise "Monster not found: #{mon_id}" if monster.nil?
-    monster_level = monster[:levels][0]
-    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp][0]
-    experience_percentage = monster[:exp_pct][0].to_f/100
+    monster_level = difficulty == 0 ? monster[:levels][difficulty] : level[:levels][difficulty]
+    experience_at_level_in_difficulty = MON_LVL[monster_level][:exp][difficulty]
+    experience_percentage = monster[:exp_pct][difficulty].to_f/100
     experience_at_level_in_difficulty * experience_percentage
   end
-
-  nightmare_area_level = level[:levels][1]
-  nightmare_monster_xps = level[:monsters].map do |mon_id|
-    monster = mon_stats[mon_id]
-    raise "Monster not found: #{mon_id}" if monster.nil?
-    monster_level = nightmare_area_level
-    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp][1]
-    experience_percentage = monster[:exp_pct][1].to_f/100
-    experience_at_level_in_difficulty * experience_percentage
-  end
-
-  hell_area_level = level[:levels][2]
-  hell_monster_xps = level[:monsters].map do |mon_id|
-    monster = mon_stats[mon_id]
-    raise "Monster not found: #{mon_id}" if monster.nil?
-    monster_level = hell_area_level
-    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp][2]
-    experience_percentage = monster[:exp_pct][2].to_f/100
-    experience_at_level_in_difficulty * experience_percentage
-  end
-
-  level[:exp] = [
-    normal_monster_xps.avg.floor,
-    nightmare_monster_xps.avg.floor,
-    hell_monster_xps.avg.floor
-  ]
+  xps.avg.floor
 end
 
-puts levels.to_json
+LEVELS.levels.each do |level|
+  level[:exp] = [0,1,2].map {|difficulty| area_xps(level, difficulty)}
+end
+
+puts LEVELS.to_json
