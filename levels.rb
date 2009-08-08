@@ -10,10 +10,12 @@ class Levels
     head.each_with_index {|name, index| @columns[name] = index}
 
     @levels = []
-    csv.reject {|row| value(row,'mon1').nil?}.each do |row|
+    csv.each do |row|
+      monsters = (1..8).map{|n| "mon#{n}"}.map {|col| value(row,col)}.compact
+      next if monsters.size == 0
       levels << {
         :name => value(row,'LevelName'),
-        :monsters => (1..8).map{|n| "mon#{n}"}.map {|col| value(row,col)}.compact,
+        :monsters => monsters,
         :levels => %w[MonLvl1Ex MonLvl2Ex MonLvl3Ex].map {|col| value(row,col)}.compact,
       }
     end
