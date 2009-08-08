@@ -1,35 +1,37 @@
 require 'csv'
-class Array
-  def col(name)
-    offset = self.class.column(name)
-    self[offset]
-  end
 
-  class << self
-    def columns=(colnames)
-      @columns = {}
-      colnames.each_with_index {|name, index| @columns[name] = index}
-      nil
+class Levels
+  attr_accessor :levels
+
+  def initialize(file)
+    csv = CSV.open(file, 'r', "\t")
+    head = csv.shift
+    @columns = {}
+    head.each_with_index {|name, index| @columns[name] = index}
+
+    @levels = []
+    csv.reject {|row| value(row,'mon1').nil?}.each do |row|
+      levels << {
+        :name => value(row,'LevelName'),
+        :monsters => (1..8).map{|n| "mon#{n}"}.map {|col| value(row,col)}.compact,
+        :levels => %w[MonLvl1Ex MonLvl2Ex MonLvl3Ex].map {|col| value(row,col)}.compact,
+      }
     end
-    
-    def column(name)
-      @columns[name]
-    end
+
+    csv.close
+  end
+  
+  def to_s
+    levels.map {|lev| lev.inspect}.join("\n")
+  end
+  
+  private
+  
+  def value(row, column_name)
+    offset = @columns[column_name]
+    row[offset]
   end
 end
 
-csv = CSV.open('data/global/excel/Levels.txt', 'r', "\t")
-head = csv.shift
-Array.columns = head
-
-levels = []
-csv.reject {|row| row.col('mon1').nil?}.each do |row|
-  levels << {
-    :name => row.col('LevelName'),
-    :monsters => (1..8).map{|n| "mon#{n}"}.map {|col| row.col(col)}.compact,
-    :levels => %w[MonLvl1Ex MonLvl2Ex MonLvl3Ex].map {|col| row.col(col)}.compact,
-  }
-end
-
-csv.close
-puts levels.map {|lev| lev.inspect}.join("\n")
+levels = Levels.new('data/global/excel/Levels.txt')
+puts levels
