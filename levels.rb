@@ -18,6 +18,26 @@ class Levels < Datasource
   end
 
   def to_s
-    levels.sort {|a,b| a[:levels] <=> b[:levels]}.map {|lev| lev.inspect}.join("\n")
+    sorted_levels.map {|lev| lev.inspect}.join("\n")
+  end
+
+  def to_a
+    sorted_levels.map do |lvl|
+      [
+        lvl[:name],
+        *((0..2).map { |n|[lvl[:levels][n], lvl[:exp][n]] }.flatten)
+      ]
+    end
+  end
+
+  # Output 4-space indented JavaScript
+  def to_json
+    "    " + to_a.map {|lvl| lvl.inspect}.join(",\n    ")
+  end
+
+  private
+
+  def sorted_levels
+    levels.sort {|a,b| a[:levels] <=> b[:levels]}
   end
 end

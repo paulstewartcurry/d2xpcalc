@@ -65,4 +65,4 @@ levels.levels.each do |level|
   ]
 end
 
-puts levels
+puts levels.to_json
