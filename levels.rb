@@ -38,6 +38,6 @@ class Levels < Datasource
   private
 
   def sorted_levels
-    levels.sort {|a,b| a[:levels] <=> b[:levels]}
+    levels.sort {|a,b| [a[:levels].first, a[:name]] <=> [b[:levels].first, b[:name]]}
   end
 end
