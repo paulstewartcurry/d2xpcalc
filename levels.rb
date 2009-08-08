@@ -16,11 +16,8 @@ class Levels < Datasource
       }
     end
   end
-  
+
   def to_s
     levels.sort {|a,b| a[:levels] <=> b[:levels]}.map {|lev| lev.inspect}.join("\n")
   end
 end
-
-levels = Levels.new
-puts levels

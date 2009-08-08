@@ -13,11 +13,12 @@ class MonLvl < Datasource
       }
     end
   end
-  
+
+  def [](level)
+    levels.find {|lvl| lvl[:level] == level}
+  end
+
   def to_s
     levels.sort {|a,b| a[:level] <=> b[:level]}.map {|row| row.inspect}.join("\n")
   end
 end
-
-monlvl = MonLvl.new
-puts monlvl

@@ -23,11 +23,12 @@ class MonStats < Datasource
       }
     end
   end
-  
+
+  def [](id)
+    monsters.find {|mon| mon[:id] == id}
+  end
+
   def to_s
     monsters.sort {|a,b| a[:levels] <=> b[:levels]}.map {|row| row.inspect}.join("\n")
   end
 end
-
-monstats = MonStats.new
-puts monstats
