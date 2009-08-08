@@ -1,16 +1,12 @@
-require 'csv'
+require 'datasource'
 
-class Levels
+class Levels < Datasource
   attr_accessor :levels
 
   def initialize(file)
-    csv = CSV.open(file, 'r', "\t")
-    head = csv.shift
-    @columns = {}
-    head.each_with_index {|name, index| @columns[name] = index}
-
+    super
     @levels = []
-    csv.each do |row|
+    rows.each do |row|
       monsters = (1..8).map{|n| "mon#{n}"}.map {|col| value(row,col)}.compact
       next if monsters.size == 0
       levels << {
@@ -19,19 +15,10 @@ class Levels
         :levels => %w[MonLvl1Ex MonLvl2Ex MonLvl3Ex].map {|col| value(row,col)}.compact.map {|n| n.to_i},
       }
     end
-
-    csv.close
   end
   
   def to_s
     levels.sort {|a,b| a[:levels] <=> b[:levels]}.map {|lev| lev.inspect}.join("\n")
-  end
-  
-  private
-  
-  def value(row, column_name)
-    offset = @columns[column_name]
-    row[offset]
   end
 end
 
