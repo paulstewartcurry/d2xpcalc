@@ -16,7 +16,7 @@ class Levels
       levels << {
         :name => value(row,'LevelName'),
         :monsters => monsters,
-        :levels => %w[MonLvl1Ex MonLvl2Ex MonLvl3Ex].map {|col| value(row,col)}.compact,
+        :levels => %w[MonLvl1Ex MonLvl2Ex MonLvl3Ex].map {|col| value(row,col)}.compact.map {|n| n.to_i},
       }
     end
 
@@ -24,7 +24,7 @@ class Levels
   end
   
   def to_s
-    levels.map {|lev| lev.inspect}.join("\n")
+    levels.sort {|a,b| a[:levels] <=> b[:levels]}.map {|lev| lev.inspect}.join("\n")
   end
   
   private
