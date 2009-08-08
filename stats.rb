@@ -44,5 +44,6 @@ end
 LEVELS.levels.each do |level|
   level[:exp] = [0,1,2].map {|difficulty| area_xps(level, difficulty)}
 end
+LEVELS.levels.reject! {|level| level[:exp].sum == 0}
 
 puts LEVELS.to_json
