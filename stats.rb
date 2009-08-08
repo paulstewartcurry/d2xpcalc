@@ -33,8 +33,8 @@ levels.levels.each do |level|
     monster = mon_stats[mon_id]
     raise "Monster not found: #{mon_id}" if monster.nil?
     monster_level = monster[:levels][0]
-    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp].first
-    experience_percentage = monster[:exp_pct].first.to_f/100
+    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp][0]
+    experience_percentage = monster[:exp_pct][0].to_f/100
     experience_at_level_in_difficulty * experience_percentage
   end
 
@@ -43,8 +43,8 @@ levels.levels.each do |level|
     monster = mon_stats[mon_id]
     raise "Monster not found: #{mon_id}" if monster.nil?
     monster_level = nightmare_area_level
-    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp].first
-    experience_percentage = monster[:exp_pct].first.to_f/100
+    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp][1]
+    experience_percentage = monster[:exp_pct][1].to_f/100
     experience_at_level_in_difficulty * experience_percentage
   end
 
@@ -53,8 +53,8 @@ levels.levels.each do |level|
     monster = mon_stats[mon_id]
     raise "Monster not found: #{mon_id}" if monster.nil?
     monster_level = hell_area_level
-    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp].first
-    experience_percentage = monster[:exp_pct].first.to_f/100
+    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp][2]
+    experience_percentage = monster[:exp_pct][2].to_f/100
     experience_at_level_in_difficulty * experience_percentage
   end
 
