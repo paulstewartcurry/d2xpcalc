@@ -1,3 +1,4 @@
+$LOAD_PATH.unshift 'lib'
 require 'levels'
 require 'mon_stats'
 require 'mon_lvl'
