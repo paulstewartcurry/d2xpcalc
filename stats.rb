@@ -6,7 +6,7 @@ class Array
   def sum
     inject(0) {|a,e| a+e}
   end
-  
+
   def avg
     sum.to_f / size
   end
@@ -29,19 +29,40 @@ mon_stats = cache('mon_stats') {MonStats.new}
 mon_lvl = cache('mon_lvl') {MonLvl.new}
 
 levels.levels.each do |level|
-  monster_xps = level[:monsters].map do |mon_id|
+  normal_monster_xps = level[:monsters].map do |mon_id|
     monster = mon_stats[mon_id]
     raise "Monster not found: #{mon_id}" if monster.nil?
-    monster_level_normal = monster[:levels][0]
-    monster_experience_monster_level_normal = mon_lvl[monster_level_normal][:exp].first
-    monster_experience_percentage_normal = monster[:exp_pct].first.to_f/100
-    norm_real_xp = monster_experience_monster_level_normal * monster_experience_percentage_normal
+    monster_level = monster[:levels][0]
+    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp].first
+    experience_percentage = monster[:exp_pct].first.to_f/100
+    experience_at_level_in_difficulty * experience_percentage
   end
-  level[:exp] = [monster_xps.avg.floor]
-end
 
-# normal_real_xp = normal_mon_lvl_xp * mon_xp_pct_norm
-# nightmare_real_xp = nm_area_lvl_xp * mon_xp_pct_nm
-# hell_real_xp = hell_area_lvl_xp * mon_xp_pct_hell
+  nightmare_area_level = level[:levels][1]
+  nightmare_monster_xps = level[:monsters].map do |mon_id|
+    monster = mon_stats[mon_id]
+    raise "Monster not found: #{mon_id}" if monster.nil?
+    monster_level = nightmare_area_level
+    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp].first
+    experience_percentage = monster[:exp_pct].first.to_f/100
+    experience_at_level_in_difficulty * experience_percentage
+  end
+
+  hell_area_level = level[:levels][2]
+  hell_monster_xps = level[:monsters].map do |mon_id|
+    monster = mon_stats[mon_id]
+    raise "Monster not found: #{mon_id}" if monster.nil?
+    monster_level = hell_area_level
+    experience_at_level_in_difficulty = mon_lvl[monster_level][:exp].first
+    experience_percentage = monster[:exp_pct].first.to_f/100
+    experience_at_level_in_difficulty * experience_percentage
+  end
+
+  level[:exp] = [
+    normal_monster_xps.avg.floor,
+    nightmare_monster_xps.avg.floor,
+    hell_monster_xps.avg.floor
+  ]
+end
 
 puts levels
