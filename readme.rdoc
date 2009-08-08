@@ -1,0 +1,28 @@
+= D2xpcalc
+
+Diablo 2 EXperience Calculator is a simple tool to help players find the best
+place to level their character. This is done by calculating the average experience
+value of creatures found in each area and modifying this value for the player's entered level.
+
+== How to use D2xpcalc
+
+Open xpcalc.html in a web browser that supports JavaScript. This can be done on
+your local machine by downloading D2xpcalc (as archive or as git repo) and then
+double clicking on xpcalc.html.
+
+== How to use stats.rb
+
+(This is aimed at developers and maintainers of d2xpcalc, not at regular users.)
+
+Run stats.rb to generate a new list of areas and their experience values:
+  ruby stats.rb
+The output of this can be used to replace the array defined at the start of xpcalc.js.
+
+The main reasons to run stats.rb are:
+* There is a new Diablo 2 patch
+* The calculations have been updated
+
+== Contributions
+
+* Paul Curry [http://github.com/dashteacup]
+* Wes Oldenbeuving [http://github.com/Narnach]
