@@ -32,7 +32,7 @@ class Levels < Datasource
 
   # Output 4-space indented JavaScript
   def to_json
-    "    " + to_a.map {|lvl| lvl.inspect}.join(",\n    ")
+    to_a.map {|lvl| lvl.inspect}.join(",\n")
   end
 
   private
