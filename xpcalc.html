@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Diablo 2 Experience Calculator</title>
+    <script type="text/javascript" src="xpcalc.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="xpcalc.css" />
+  </head>
+  <body onload="document.getElementById('levelField').focus()">
+    <h1>Experience Calculator</h1>
+    <form onsubmit="calc(); return(false);" action="">
+      <label for="levelField">Level:</label>
+      <input type="text" id="levelField" size="2" value="1" maxlength="2" /><br />
+      <label for="rangeField">Range:</label>
+      <input type="text" id="rangeField" size="2" value="5" maxlength="2" /><br />
+      <input type="submit" onclick="calc()" value="calculate" />
+    </form>
+    <br />
+
+    <div id="table"></div>
+    <hr />
+    Version 0.4<br />
+    Written by <a href="mailto:dashteacup@comcast.net">dashteacup</a> and Narnach.
+  </body>
+</html>
