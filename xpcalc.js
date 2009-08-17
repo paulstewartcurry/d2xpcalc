@@ -134,28 +134,6 @@ function splitAreaLevels(alist) {
     return newList;
 }
 
-// Create the HTML table from the given list, and write it to the document.
-function makeTable(list) {
-    var tableDiv = document.getElementById("table");
-    var tableText = "<table border=\"1\">";
-    tableText += "<tr><th>area</th><th>alvl</th>" +
-                 "<th>average xp</th><th>difficulty</th></tr>";
-    for (row in list) {
-        tableText += "<tr>";
-        for (col in list[row]) {
-            tableText += "<td>" + list[row][col] + "</td>";
-        }
-        tableText += "</tr>";
-    }
-    tableText += "</table>";
-    tableDiv.innerHTML = tableText;
-}
-
-// Sort function for two XP values.
-function sortXP(a, b) {
-    return a[2] - b[2];
-}
-
 // Filters out all areas that aren't between (alvl - range) and (alvl + range)
 function rangeFilter(alist, level, range) {
     var filtered = new Array();
@@ -165,6 +143,23 @@ function rangeFilter(alist, level, range) {
             alist[row][1] <= level + range) {
             filtered[nrow++] = alist[row].slice(0); // copy by value
        }
+    }
+    return filtered;
+}
+
+// Filter out areas in unwanted difficulties.
+function difficultyFilter(alist) {
+    var normal = document.getElementById("normalBox").checked;
+    var nightmare = document.getElementById("nightmareBox").checked;
+    var hell = document.getElementById("hellBox").checked;
+    var filtered = new Array();
+    var row = 0;
+    for (area in alist) {
+        if ((alist[area][3] == "N" && normal) ||
+            (alist[area][3] == "NM" && nightmare) ||
+            (alist[area][3] == "H" && hell)) {
+            filtered[row++] = alist[area].slice(0);
+        }
     }
     return filtered;
 }
@@ -217,21 +212,26 @@ function scaleXP(alist, level) {
     return scaled;
 }
 
-// Filter out areas in unwanted difficulties.
-function difficultyFilter(alist) {
-    var normal = document.getElementById("normalBox").checked;
-    var nightmare = document.getElementById("nightmareBox").checked;
-    var hell = document.getElementById("hellBox").checked;
-    var filtered = new Array();
-    var row = 0;
-    for (area in alist) {
-        if ((alist[area][3] == "N" && normal) ||
-            (alist[area][3] == "NM" && nightmare) ||
-            (alist[area][3] == "H" && hell)) {
-            filtered[row++] = alist[area].slice(0);
+// Sort function for two XP values.
+function sortXP(a, b) {
+    return a[2] - b[2];
+}
+
+// Create the HTML table from the given list, and write it to the document.
+function makeTable(list) {
+    var tableDiv = document.getElementById("table");
+    var tableText = "<table border=\"1\">";
+    tableText += "<tr><th>area</th><th>alvl</th>" +
+                 "<th>average xp</th><th>difficulty</th></tr>";
+    for (row in list) {
+        tableText += "<tr>";
+        for (col in list[row]) {
+            tableText += "<td>" + list[row][col] + "</td>";
         }
+        tableText += "</tr>";
     }
-    return filtered;
+    tableText += "</table>";
+    tableDiv.innerHTML = tableText;
 }
 
 // main() function
