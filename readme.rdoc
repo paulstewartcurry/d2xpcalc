@@ -22,6 +22,7 @@ The main reasons to run stats.rb are:
 
 * Calculate average experience per game area based on normal monster XP
 * Ignore areas without XP
+* Filter by difficulty level
 
 == Plans
 
