@@ -166,7 +166,7 @@ function rangeFilter(alist, level, range) {
     for (row in alist) {
         if (alist[row][1] >= level - range &&
             alist[row][1] <= level + range) {
-            filtered[nrow++] = alist[row];
+            filtered[nrow++] = alist[row].slice(0); // copy by value
        }
     }
     return filtered;
@@ -210,7 +210,7 @@ function greaterThan25(alvl, clvl) {
 function scaleXP(alist, level) {
     var scaled = new Array();
     for (area in alist) {
-        scaled[area] = alist[area];
+        scaled[area] = alist[area].slice(0); // copy by value
         if (level <= 24)
             scaled[area][2] *= lessThan25(alist[area][1], level);
         else
