@@ -1,14 +1,10 @@
 = D2xpcalc
 
-Diablo 2 EXperience Calculator is a simple tool to help players find the best
-place to level their character. This is done by calculating the average experience
-value of creatures found in each area and modifying this value for the player's entered level.
+Diablo 2 EXperience Calculator is a simple tool to help players find the best place to level their character. This is done by calculating the average experience value of creatures found in each area and modifying this value for the player's entered level.
 
 == How to use D2xpcalc
 
-Open xpcalc.html in a web browser that supports JavaScript. This can be done on
-your local machine by downloading D2xpcalc (as archive or as git repo) and then
-double clicking on xpcalc.html.
+Open xpcalc.html in a web browser that supports JavaScript. This can be done on your local machine by downloading D2xpcalc (as archive or as git repo) and then double clicking on xpcalc.html.
 
 == How to use stats.rb
 
@@ -21,6 +17,27 @@ The output of this can be used to replace the array defined at the start of xpca
 The main reasons to run stats.rb are:
 * There is a new Diablo 2 patch
 * The calculations have been updated
+
+== Features
+
+* Calculate average experience per game area based on normal monster XP
+* Ignore areas without XP
+
+== Plans
+
+* Add 'pretty' names for areas. Some areas have internal names like 'Hell1'
+* Let stats.rb direclty modify xpcalc.js' data. Copy/paste is a crude way to do it.
+* Don't use percentage-based XP calculations for monsters that have a direct XP value configured.
+* Weigh experience based on:
+  * Monster rarity (replaces equal odds for all monsters)
+  * Monster group size (weigh some monster types heavier than others)
+  * Monster minions, like shamans and fallen (add even more monsters to the mix)
+* Calculate total average XP from bosses, accounting for:
+  * Average amount of bosses per area
+  * Possible boss types and their minions
+  * Chance for a boss to be a champion instead
+
+Monster level changes (and thus experience calculation effect) for champions, bosses and minions: http://www.mannm.org/d2library/faqtoids/exp_eng.html
 
 == Contributions
 
