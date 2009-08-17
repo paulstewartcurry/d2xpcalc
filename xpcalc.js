@@ -217,12 +217,29 @@ function scaleXP(alist, level) {
     return scaled;
 }
 
+// Filter out areas in unwanted difficulties.
+function difficultyFilter(alist) {
+    var normal = document.getElementById("normalBox").checked;
+    var nightmare = document.getElementById("nightmareBox").checked;
+    var hell = document.getElementById("hellBox").checked;
+    var filtered = new Array();
+    var row = 0;
+    for (area in alist) {
+        if ((alist[area][3] == "N" && normal) ||
+            (alist[area][3] == "NM" && nightmare) ||
+            (alist[area][3] == "H" && hell)) {
+            filtered[row++] = alist[area].slice(0);
+        }
+    }
+    return filtered;
+}
+
 // main() function
 function calc() {
     var level = parseInt(document.getElementById("levelField").value);
     var range = parseInt(document.getElementById("rangeField").value);
     var filtered = rangeFilter(splitAreaLevels(rawAreaLevelsAndXP), level, range);
-    var adjustedXP = scaleXP(filtered, level);
+    var adjustedXP = scaleXP(difficultyFilter(filtered), level);
     adjustedXP.sort(sortXP);
     adjustedXP.reverse();
     makeTable(adjustedXP);
