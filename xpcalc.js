@@ -109,16 +109,13 @@ var rawAreaLevelsAndXP = [
     ["Halls of Anguish", 33, 1831, 63, 22442, 83, 76351],
     ["Halls of Death's Calling", 34, 1680, 64, 16110, 84, 53158],
     ["Halls of Vaught", 36, 2127, 64, 14097, 84, 46513],
-    ["Hell1", 39, 1767, 60, 19740, 81, 75502],
-    ["Hell2", 39, 1818, 61, 21239, 82, 78922],
-    ["Hell3", 39, 1353, 62, 16466, 83, 59384],
+    ["Abaddon", 39, 1767, 60, 19740, 81, 75502],
+    ["Pit of Acheron", 39, 1818, 61, 21239, 82, 78922],
+    ["Infernal Pit", 39, 1353, 62, 16466, 83, 59384],
     ["The Worldstone Keep Level 1", 39, 1842, 65, 19212, 85, 61434],
     ["The Worldstone Keep Level 2", 40, 3005, 65, 12007, 85, 38396],
     ["The Worldstone Keep Level 3", 42, 2861, 66, 24810, 85, 75086],
     ["Throne of Destruction", 43, 3125, 66, 30025, 85, 90871],
-    ["Pandemonium Run 1", 50, 1038, 75, 25822, 83, 91621],
-    ["Pandemonium Run 2", 50, 430, 75, 25383, 83, 98165],
-    ["Pandemonium Run 3", 50, 1284, 75, 36664, 83, 141795]
 ];
 
 // Create a new 4-column level list from the given raw (7-column) list.
